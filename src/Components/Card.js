@@ -2,16 +2,18 @@ import React from 'react';
 
 import {StyleSheet, Text, View, Image, Touchable} from 'react-native';
 import { TouchableOpacity } from 'react-native';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 import HeartEmpty from '../Icons/HeartEmpty';
 
 
-
 const Card = (props) => {
+
 
     //method to navigate to details page
     let toDetails = ()=>{
         props.navigation.navigate("Details");
     }
+
 
     return (
 
@@ -20,20 +22,21 @@ const Card = (props) => {
             <View style={style.cardcontainer} >
                 <View style={style.imagewrapper} >
                     <Image style={style.image} source={{
-                        uri:"https://images.unsplash.com/photo-1503453363464-743ee9ce1584?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
-                    }}>
+                        uri:props.imageUrl}}>
                     </Image>
                 </View>
                 <View style={style.titlewrapper}>
                     <View style={style.titleinnerwrapper}>
-                        <Text style={style.titletext}>title view</Text>
+                        <Text style={style.titletext}>
+                            {props.title.length > 25 ? props.title.slice(0,25) + "...": props.title} 
+                            </Text>
                     </View>
                     <View style={style.iconwrapper}>
                         <HeartEmpty style={style.icon}></HeartEmpty>
                     </View>
                 </View>
                 <View style={style.descriptionwrapper}>
-                    <Text style={style.descriptiontext}>descriptionview</Text>
+                    <Text style={style.descriptiontext}>{props.description.length > 75 ? props.description.slice(0,75) +"..." : props.description} </Text>
                 </View>
             </View>
          </TouchableOpacity>
@@ -43,12 +46,13 @@ const Card = (props) => {
 const style = StyleSheet.create({
 
     cardcontainer:{
-        marginBottom:10,
+        marginBottom:17,
         borderWidth:.5,
         borderRadius:5,
         borderColor:"lightgrey",
         display:"flex",
-        flexBasis:275
+        flexBasis:275,
+        backgroundColor:"white"
     },
 
     imagewrapper:{
@@ -58,7 +62,7 @@ const style = StyleSheet.create({
         borderRightWidth:0,
         borderBottomColor:"lightgrey",
         overflow:'hidden',
-        flex:2,
+        flex:2
     },
 
     image:{
@@ -68,6 +72,7 @@ const style = StyleSheet.create({
     },
 
     titlewrapper:{
+
         display:"flex",
         borderWidth:.5,
         borderTopWidth:0,
@@ -79,24 +84,29 @@ const style = StyleSheet.create({
 
     titleinnerwrapper:{
         flex:1.5,
-        padding:10,
+        padding:15,
     },
 
     titletext:{
         fontSize:16,
+        fontWeight:700
     },
 
     iconwrapper:{
+        padding:15
     },
 
     icon:{
-
+        
         marginTop:10,
-
     },
 
     descriptionwrapper:{
-        padding:5
+        padding:10,
+    },
+
+    descriptiontext:{
+        
     }
 });
 

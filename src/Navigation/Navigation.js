@@ -49,11 +49,8 @@ const setTint = ()=>{
 //you can also call it like this headerLeft:() => Hambergermenu() (returns jsx)
 const StackNav = () =>{
   return(
-    <Stack.Navigator screenOptions={{
-        headerLeft:()=> <HambergerMenu/>,
-        headerTintColor:setTint()
-    }}>
-                    <Stack.Screen name="News List" component={NewsListScreen} options={{title: "Front Page"}}></Stack.Screen>
+    <Stack.Navigator>
+                    <Stack.Screen name="News List" component={NewsListScreen} options={{title: "Front Page", headerLeft:HambergerMenu}}></Stack.Screen>
                     <Stack.Screen name="Details" component={DetailScreen} options={{title: "Full Details"}}></Stack.Screen>
                     <Stack.Screen name="Favorite" component={FavoriteScreen} options={{title: "My Favorites"}}></Stack.Screen>
                     <Stack.Screen name="About" component={AboutScreen} options={{title: "About Us"}}></Stack.Screen>
@@ -61,15 +58,12 @@ const StackNav = () =>{
   )
 }
 
-
 const FavoritesNav = ()=>{
 
     return(
-
         <Stack.Navigator screenOptions={{headerLeft:HambergerMenu}}>
             <Stack.Screen name="favorites" component={FavoriteScreen}></Stack.Screen>
         </Stack.Navigator>
-
     )
 }
 
@@ -124,7 +118,6 @@ const TabsNav =()=>{
                
         </NavigationContainer>
     )
-
   }
 
   export default Navigation; 
