@@ -14,6 +14,7 @@ import Card from '../Components/Card'
 
 
 
+
  const NewsListScreen = (props)=>{
 
     const navigation = useNavigation();
@@ -37,7 +38,7 @@ import Card from '../Components/Card'
 
 
     /* get the available data from the store using useSelector    */
-    const articleSet = useSelector( state=>state.newsReducer.articleData );
+    const articleSet = useSelector(state=>state.newsReducer.articleData);
 
 
 
@@ -52,7 +53,7 @@ import Card from '../Components/Card'
                     ({item})=>{
 
                             if(item.description!=null && item.urlToImage!=null){
-                                return <Card navigation={navigation} title={item.title} 
+                                return <Card url={item.url} navigation={navigation} title={item.title} 
                                 description={item.description} imageUrl={item.urlToImage}></Card>
                             }
                     }             

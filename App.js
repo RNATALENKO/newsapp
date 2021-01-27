@@ -14,8 +14,6 @@ import Store from './src/store.js';
 
 export default function App() {
 
-  
-
   return (
 
     

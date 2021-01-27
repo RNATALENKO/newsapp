@@ -4,23 +4,42 @@ import {StyleSheet, Text, View, Image, Touchable} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 import HeartEmpty from '../Icons/HeartEmpty';
+import {useDispatch, useSelector} from 'react-redux'; //import use dispatch allows to dispatch events
+import {addFavorite} from '../Actions/Actions'; //import action we want to execute
+
 
 
 const Card = (props) => {
 
+    //if you get an error saying it's not an object, add curly braces, the export was not default
+    let dispatch = useDispatch();
+
+    const favoritesData = useSelector(state=>state.newsReducer.favoritesData);
+    
 
     //method to navigate to details page
     let toDetails = ()=>{
         props.navigation.navigate("Details");
     }
 
+    //executes the add favorite dispatch
+    let dispatchFav = ()=>{
+
+        //dispatch the favorite method, since addfavorite takes url, use the props from the key
+        dispatch(addFavorite(props.url));  
+
+        console.log(favoritesData); //log the previous data
+        
+    }
+
 
     return (
 
         //on press of the opacity of the card, go to details
-        <TouchableOpacity onPress={toDetails}>
-            <View style={style.cardcontainer} >
-                <View style={style.imagewrapper} >
+    
+        <TouchableOpacity onPress={()=>{props.navigation.navigate("Details"); alert("card pressed in component")}}>
+            <View style={style.cardcontainer} onPress={console.log("card pressed")}>
+                <View style={style.imagewrapper}>
                     <Image style={style.image} source={{
                         uri:props.imageUrl}}>
                     </Image>
@@ -31,9 +50,13 @@ const Card = (props) => {
                             {props.title.length > 25 ? props.title.slice(0,25) + "...": props.title} 
                             </Text>
                     </View>
+                    
                     <View style={style.iconwrapper}>
-                        <HeartEmpty style={style.icon}></HeartEmpty>
-                    </View>
+                        <TouchableOpacity onPress={dispatchFav} >
+                            <HeartEmpty style={style.icon}></HeartEmpty>
+                        </TouchableOpacity>
+                    </View> 
+                   
                 </View>
                 <View style={style.descriptionwrapper}>
                     <Text style={style.descriptiontext}>{props.description.length > 75 ? props.description.slice(0,75) +"..." : props.description} </Text>
@@ -89,11 +112,11 @@ const style = StyleSheet.create({
 
     titletext:{
         fontSize:16,
-        fontWeight:700
+        fontWeight:"700",
     },
 
     iconwrapper:{
-        padding:15
+        padding:15,
     },
 
     icon:{

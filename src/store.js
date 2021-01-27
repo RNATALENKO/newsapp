@@ -7,15 +7,17 @@ import reduxThunk from 'redux-thunk';
 
 
 import {composeWithDevTools} from 'redux-devtools-extension';
-import newsReducer from './Reducers/reducers.js';
+import {newsReducer} from './Reducers/reducers.js';
 
 
 const reducers = combineReducers({
-    newsReducer:newsReducer
+    newsReducer
 })
 
 
 const Store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(reduxThunk)));
+
+
 
 
 export default Store; 

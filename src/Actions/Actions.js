@@ -5,6 +5,7 @@ export const GET_ARTICLES = "GET_ARTICLES"; //fetches article data
 export const ADD_FAVORITES = "ADD_FAVORITES"; //adds to favorites
 
 
+//actions return an object with payload and type
 
 
 
@@ -27,11 +28,11 @@ export const getArticles = ()=>{
 export const getArticles= ()=>{
     
     //return dispatch method
-    return async dispatch =>{
+    return async dispatch => {
 
         /* make http requests to the database or api */
         //logic to fetch data
-       const results = await fetch("http://newsapi.org/v2/everything?q=bitcoin&from=2020-12-25&sortBy=publishedAt&apiKey=6650ba7a97234dbabf79df87c66c5235");
+       const results = await fetch("http://newsapi.org/v2/everything?q=tesla&from=2020-12-26&sortBy=publishedAt&apiKey=MYAPIKEY");
 
        //convert result from request to JSON format
        //this is the data that gets passed to payload, i.e. the array of objects
@@ -42,5 +43,17 @@ export const getArticles= ()=>{
             type:"GET_ARTICLES",
             payload: resultData
         })
+    }
+}
+
+
+
+
+//usually we use Id to find the data we want to add, but since there's no id in the articles set
+//we will use the url 
+export const addFavorite = (url)=> {
+    return {
+        type:"ADD_FAVORITES",
+        payload:url
     }
 }
