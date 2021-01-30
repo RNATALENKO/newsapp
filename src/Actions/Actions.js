@@ -32,7 +32,7 @@ export const getArticles= ()=>{
 
         /* make http requests to the database or api */
         //logic to fetch data
-       const results = await fetch("http://newsapi.org/v2/everything?q=tesla&from=2020-12-26&sortBy=publishedAt&apiKey=MYAPIKEY");
+       const results = await fetch("http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=MYAPIKEY");
 
        //convert result from request to JSON format
        //this is the data that gets passed to payload, i.e. the array of objects

@@ -4,7 +4,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, FlatList} from 'react-native';
 
 //used to trigger redux actions
-import {useSelector, useDsipatch, useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 //imports everything from action.js page
 import * as newsAction from '../Actions/Actions.js';
@@ -63,10 +63,5 @@ import Card from '../Components/Card'
     );
 
 }
-
-const style = StyleSheet.create({
-
-});
-
 
 export default NewsListScreen;

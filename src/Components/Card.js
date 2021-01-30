@@ -2,10 +2,9 @@ import React from 'react';
 
 import {StyleSheet, Text, View, Image, Touchable} from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { initialWindowMetrics } from 'react-native-safe-area-context';
-import HeartEmpty from '../Icons/HeartEmpty';
 import {useDispatch, useSelector} from 'react-redux'; //import use dispatch allows to dispatch events
 import {addFavorite} from '../Actions/Actions'; //import action we want to execute
+import { FontAwesome } from '@expo/vector-icons'; 
 
 
 
@@ -15,6 +14,16 @@ const Card = (props) => {
     let dispatch = useDispatch();
 
     const favoritesData = useSelector(state=>state.newsReducer.favoritesData);
+
+
+    //return true or false if item exists in favorites, since props have the url passed down to this card
+    //some returns true or false if it finds an element that passes condition
+    const isFav =  useSelector(state=>state.newsReducer.favoritesData.some(element=>element.url === props.url));
+    /*
+    console.log(isFav);
+    console.log(props.url);
+    console.log("test");
+    */
     
 
     //method to navigate to details page
@@ -24,20 +33,19 @@ const Card = (props) => {
 
     //executes the add favorite dispatch
     let dispatchFav = ()=>{
-
         //dispatch the favorite method, since addfavorite takes url, use the props from the key
-        dispatch(addFavorite(props.url));  
-
-        console.log(favoritesData); //log the previous data
-        
+        dispatch(addFavorite(props.url));     
     }
 
 
     return (
 
-        //on press of the opacity of the card, go to details
-    
-        <TouchableOpacity onPress={()=>{props.navigation.navigate("Details"); alert("card pressed in component")}}>
+        //on press, navigate to details screen, and pass params data to it
+        //note: sends to global route object
+        <TouchableOpacity onPress={()=>{props.navigation.navigate("Details", {
+            paramUrl:props.url,
+            isFavParam: isFav
+        })}}>
             <View style={style.cardcontainer} onPress={console.log("card pressed")}>
                 <View style={style.imagewrapper}>
                     <Image style={style.image} source={{
@@ -52,9 +60,7 @@ const Card = (props) => {
                     </View>
                     
                     <View style={style.iconwrapper}>
-                        <TouchableOpacity onPress={dispatchFav} >
-                            <HeartEmpty style={style.icon}></HeartEmpty>
-                        </TouchableOpacity>
+                           <FontAwesome name={isFav ? 'heart' : 'heart-o'} style={style.icon} size={19} onPress={dispatchFav}></FontAwesome> 
                     </View> 
                    
                 </View>
@@ -120,17 +126,14 @@ const style = StyleSheet.create({
     },
 
     icon:{
-        
-        marginTop:10,
+        marginTop:5,
     },
+
 
     descriptionwrapper:{
         padding:10,
     },
 
-    descriptiontext:{
-        
-    }
 });
 
 export default Card; 
